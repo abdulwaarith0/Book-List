@@ -10,11 +10,11 @@ class Book {
 
 // UI Constructor
 class UI {
-    constructor(params) {
+    constructor() {
     }
     // Add book to List
     addBookList(book) {
-        // console.log(book);
+
         const list = document.querySelector("#book-list");
 
         // Create tr element
@@ -53,6 +53,7 @@ UI.prototype.showAlert = function (message, className) {
 
     container.insertBefore(div, form);
 
+
     setTimeout(function () {
         document.querySelector(".alert").remove();
     }, 3000);
@@ -77,6 +78,7 @@ document.querySelector("#book-form").addEventListener("submit",
 
         // Instantiate UI Object
         const ui = new UI();
+        console.log(ui)
 
         // Validate
         if (title === "" || author === "" || isbn === "") {
@@ -108,3 +110,4 @@ document.querySelector("#book-list").addEventListener("click",
 
         e.preventDefault()
     });
+
