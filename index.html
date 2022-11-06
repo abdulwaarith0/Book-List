@@ -9,6 +9,20 @@
         integrity="sha512-5fsy+3xG8N/1PV5MIJz9ZsWpkltijBI48gBzQ/Z2eVATePGHOkMIn+xTDHIfTZFVb9GMpflF2wOWItqxAP2oLQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
         <style>
+            body {
+                background-color: beige;
+            }
+            .delete {
+                text-decoration: none;
+                color: cadetblue;
+                font-weight: 900;
+                border: 1.5px solid;
+            }
+            #submit {
+                background: slategray;
+                color: aliceblue;
+                font-size: 1.5rem;
+            }
             .success, .error {
                 color: white;
                 padding: 5px;
@@ -41,7 +55,7 @@
                 <input type="text" id="isbn" class="u-full-width">
             </div>
             <div>
-                <input type="submit" value="Submit" class="u-full-width">
+                <input type="submit" id="submit" value="Submit" class="u-full-width">
             </div>
         </form>
         <table class="u-full-width">

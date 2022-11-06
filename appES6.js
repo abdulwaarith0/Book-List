@@ -59,6 +59,54 @@ class UI {
     };
 };
 
+// Local Storage class
+class Store {
+    static displayBooks() {
+        const books = Store.getBooks();
+
+        books.forEach(function (book) {
+            const ui = new UI;
+
+            ui.addBookToList(book);
+        });
+    };
+
+    static addBooks(book) {
+        const books = Store.getBooks();
+
+        books.push(book);
+
+        localStorage.setItem("books", JSON.stringify(books));
+    };
+
+    static getBooks() {
+        let books;
+        if (localStorage.getItem("books") === null) {
+            books = [];
+        } else {
+            books = JSON.parse(localStorage.getItem("books"));
+        };
+
+        return books;
+    };
+
+    static removeBooks(isbn) {
+        const books = Store.getBooks();
+
+        books.forEach(function (book, index) {
+            if (book.isbn === isbn) {
+                books.splice(index, 1);
+            };
+        });
+
+        localStorage.setItem("books", JSON.stringify(books));
+    };
+};
+
+// DOM Load Event
+document.addEventListener("DOMContentLoaded", Store.displayBooks());
+
+
 // Event Listeners for books
 document.querySelector("#book-form").addEventListener("submit",
     function (e) {
@@ -71,7 +119,6 @@ document.querySelector("#book-form").addEventListener("submit",
 
         // Instantiate UI Object
         const ui = new UI();
-        console.log(ui)
 
         // Validate
         if (title === "" || author === "" || isbn === "") {
@@ -80,6 +127,9 @@ document.querySelector("#book-form").addEventListener("submit",
         } else {
 
             ui.addBookToList(book);
+
+            // Add To Local Storage
+            Store.addBooks(book);
 
             ui.showAlert("Book Added Successfully !!!", "success")
 
@@ -98,7 +148,11 @@ document.querySelector("#book-list").addEventListener("click",
         const ui = new UI();
 
         ui.deleteBook(e.target);
-        // SowAlert
+
+        // Remove from Local Storage
+        Store.removeBooks(e.target.parentElement.previousElementSibling.textContent);
+
+        // hSowAlert
         ui.showAlert("Book removed", "success");
 
         e.preventDefault()
